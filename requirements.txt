@@ -1,0 +1,4 @@
+flask
+pymongo
+cryptography
+python-decouple
