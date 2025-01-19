@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
-from pymongo import MongoClient
 from cryptography.hazmat.primitives.ciphers.aead import AESGCM
+from pymongo.mongo_client import MongoClient
+from pymongo.server_api import ServerApi
 import os
 import base64
 import random
@@ -9,9 +10,15 @@ from decouple import config
 app = Flask(__name__)
 
 # MongoDB Connection
-MONGO_URI = config("MONGO_URI")
-client = MongoClient(MONGO_URI)
-db = client.encrypted_chat
+MONGO_URI = "mongodb+srv://admin:Happyboy1234@db1.fzf97.mongodb.net/?retryWrites=true&w=majority&appName=db1"
+client = MongoClient(MONGO_URI, server_api=ServerApi('1'))
+try:
+    client.admin.command('ping')
+    print("Pinged your deployment. You successfully connected to MongoDB!")
+except Exception as e:
+    print(e)
+
+db = client.db1
 users = db.users
 messages = db.messages
 
