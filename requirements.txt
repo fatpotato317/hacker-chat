@@ -2,3 +2,4 @@ flask
 pymongo
 cryptography
 python-decouple
+pymongo[srv]
